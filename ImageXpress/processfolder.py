@@ -9,7 +9,7 @@ from tifffile import TiffFile, imwrite
 
 
 # custom json encoder
-class UUIDEncoder(json.JSONEncoder):
+class CustomJSONEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, UUID):
             # if the obj is uuid, we simply return the value of uuid
@@ -46,7 +46,7 @@ def processfolder(pth_in, pth_out=None):
                     'image-name': tif_ref.metaseries_metadata['PlaneInfo']['image-name'],
                     'spatial-calibration-x': tif_ref.metaseries_metadata['PlaneInfo']['spatial-calibration-x'],
                     'spatial-calibration-y': tif_ref.metaseries_metadata['PlaneInfo']['spatial-calibration-y'],
-                    'metadata': {"Info": json.dumps(tif_ref.metaseries_metadata, cls=UUIDEncoder)}}
+                    'metadata': {"Info": json.dumps(tif_ref.metaseries_metadata, cls=CustomJSONEncoder)}}
         if stage_label in tifsets.keys():
             tifsets[stage_label].append(tif_info)
         else:
