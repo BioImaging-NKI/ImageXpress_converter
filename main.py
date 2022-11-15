@@ -20,7 +20,7 @@ def get_args() -> argparse.Namespace:
         "-l",
         type=str,
         help="LogLevel: 0 error (default), 1 warning, 2 info",
-        default=2,
+        default=0,
     )
     myparser.add_argument(
         "-o",
