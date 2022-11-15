@@ -1,9 +1,22 @@
+import json
 import logging
+import datetime
 from pathlib import Path
+from uuid import UUID
 
 import numpy as np
 from tifffile import TiffFile, imwrite
 
+
+# custom json encoder
+class UUIDEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, UUID):
+            # if the obj is uuid, we simply return the value of uuid
+            return obj.hex
+        if isinstance(obj, datetime.datetime):
+            return str(obj)
+        return json.JSONEncoder.default(self, obj)
 
 def processfolder(pth_in, pth_out=None):
     logging.info(f"pth_in = {pth_in}")
@@ -29,10 +42,11 @@ def processfolder(pth_in, pth_out=None):
         if 'Timepoint' in tif_ref.metaseries_metadata['PlaneInfo'].keys():
             timepoint = tif_ref.metaseries_metadata['PlaneInfo']['Timepoint']
         tif_info = {'pth': tif,
-                'timepoint': timepoint,
-                'image-name': tif_ref.metaseries_metadata['PlaneInfo']['image-name'],
-                'spatial-calibration-x': tif_ref.metaseries_metadata['PlaneInfo']['spatial-calibration-x'],
-                'spatial-calibration-y': tif_ref.metaseries_metadata['PlaneInfo']['spatial-calibration-y']}
+                    'timepoint': timepoint,
+                    'image-name': tif_ref.metaseries_metadata['PlaneInfo']['image-name'],
+                    'spatial-calibration-x': tif_ref.metaseries_metadata['PlaneInfo']['spatial-calibration-x'],
+                    'spatial-calibration-y': tif_ref.metaseries_metadata['PlaneInfo']['spatial-calibration-y'],
+                    'metadata': {"Info": json.dumps(tif_ref.metaseries_metadata, cls=UUIDEncoder)}}
         if stage_label in tifsets.keys():
             tifsets[stage_label].append(tif_info)
         else:
@@ -40,6 +54,7 @@ def processfolder(pth_in, pth_out=None):
         tif_ref.close()
 
     for tifset in tifsets:
+        logging.info(f"Running stage label {tifset} with {len(tifsets[tifset])} files")
         timepoints = list(set([x['timepoint'] for x in tifsets[tifset]]))
         image_names = list(set([x['image-name'] for x in tifsets[tifset]]))
         pixelSizeX = list(set([x['spatial-calibration-x'] for x in tifsets[tifset]]))
@@ -48,25 +63,21 @@ def processfolder(pth_in, pth_out=None):
             logging.error('Warning! Pixel sizes of images not equal.')
             continue
         images = [[None] * len(image_names) for _ in range(len(timepoints))]
+        metadata = None
         for tif in tifsets[tifset]:
             tif_ref = TiffFile(tif['pth'])
             # stage_position_x = tif_ref.metaseries_metadata['PlaneInfo']['stage-position-x']
             # stage_position_y = tif_ref.metaseries_metadata['PlaneInfo']['stage-position-y']
-            idx_t = timepoints.index(timepoint)
-            idx_c = image_names.index(tif_ref.metaseries_metadata['PlaneInfo']['image-name'])
+            idx_t = timepoints.index(tif['timepoint'])
+            idx_c = image_names.index(tif['image-name'])
+            logging.info(f"Found file {tif['pth'].stem} ; t = {idx_t} ; c = {idx_c}")
             images[idx_t][idx_c] = tif_ref.pages[0].asarray()
+            metadata = tif['metadata']
         data = np.stack(images)
         filename = f"{' '.join(tifset)}.tif"
         outpath = Path(pth_out, filename)
         outpath.parent.mkdir(exist_ok=True)
         logging.info(f"Saving to: {outpath}")
-        metadata = {
-            'axes': 'TCYX',
-            'unit': 'um',
-            'Channel': {'Name': [image_names[0], image_names[1]]},
-            'PhysicalSizeXUnit': 'um',
-            'PhysicalSizeYUnit': 'um'
-        }
         imwrite(
             outpath,
             data,
