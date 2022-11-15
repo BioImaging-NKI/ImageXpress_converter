@@ -13,7 +13,7 @@ Options:
   -h, --help               show this help message and exit
   -i InputFolder        the root input folder containing all the separate tif images (put between " " if the inputFolder contains spaces).
   -o OutputFolder    Output folder
-  -l LogLevel             LogLevel: 0 error, 1 warning, 2 info (default: 2)
+  -l LogLevel             LogLevel: 0 error, 1 warning, 2 info (default: 0)
 
 Example: `ImageXpress_converter.exe -i "C:\Input images" -o "C:\Output images"`
 
