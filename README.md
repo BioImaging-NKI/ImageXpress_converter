@@ -4,7 +4,7 @@ Script and executable for combining separate .tif files (channels, timepoints, .
 The image metadata is used to generate output files containing a single position. Naming is `<well name> site <site number>`.
 
 ## Installation instructions
-- Download and unzip the file
+- [Download](https://github.com/BioImaging-NKI/ImageXpress_converter/releases/download/v1.1/ImageXpress_converter.v1.1.zip) and unzip the file
 - Open a command window (Windows-Key + r, type `cmd` and enter).
 - Go to the folder where you unzipped it (type `cd C:\myCustomFolder\myCustomSubfolder\ImageXpress_converter`) or add the folder to the Path.
 - usage: `ImageXpress_converter.exe [-h] [-i InputFolder] [-o OutputFolder]  [-l LogLevel]`
