@@ -5,7 +5,7 @@ from pathlib import Path
 from uuid import UUID
 
 import numpy as np
-from tifffile import TiffFile, imwrite
+from tifffile import TiffFile, imwrite, RESUNIT
 
 
 # custom json encoder
@@ -83,5 +83,6 @@ def processfolder(pth_in, pth_out=None):
             data,
             imagej=True,
             resolution=(1 / pixelSizeX[0], 1 / pixelSizeY[0]),
+            resolutionunit=RESUNIT.MICROMETER,
             metadata=metadata
         )
