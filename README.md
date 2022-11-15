@@ -8,11 +8,15 @@ The image metadata is used to generate output files containing a single position
 - Open a command window (Windows-Key + r, type `cmd` and enter).
 - Go to the folder where you unzipped it (type `cd C:\myCustomFolder\myCustomSubfolder\ImageXpress_converter`) or add the folder to the Path.
 - usage: `ImageXpress_converter.exe [-h] [-i InputFolder] [-o OutputFolder]  [-l LogLevel]`
-options:
+
+Options:
   -h, --help               show this help message and exit
-  -i InputFolder        the root input folder containing all the separate tif images
+  -i InputFolder        the root input folder containing all the separate tif images (put between " " if the inputFolder contains spaces).
   -o OutputFolder    Output folder
   -l LogLevel             LogLevel: 0 error, 1 warning, 2 info (default: 2)
+
+Example: `ImageXpress_converter.exe -i "C:\Input images" -o "C:\Output images"`
+
 
 ## Changelog
 Version 1.1: ImageXpress metadata is now included in the ImageDescription tag ("Show Info" in ImageJ).
