@@ -13,7 +13,11 @@ class ImageXpressConverter(qtw.QMainWindow):
         self.mainwidget = MainWidget(self)
         self.resize(500, 300)
         self.setCentralWidget(self.mainwidget)
+        logging.getLogger().addHandler(self.mainwidget)
+        logging.getLogger().setLevel(logging.INFO)
 
+    def closeEvent(self, event):
+        logging.getLogger().removeHandler(logging.getLogger().handlers[0])
 
 class MainWidget(qtw.QWidget, logging.Handler):
     def __init__(self, *args, **kwargs):
@@ -25,8 +29,6 @@ class MainWidget(qtw.QWidget, logging.Handler):
         self.ui.out_btn.clicked.connect(self.setout)
         self.pth_in = Path('')
         self.pth_out = Path('')
-        logging.getLogger().addHandler(self)
-        logging.getLogger().setLevel(logging.INFO)
 
     def run(self):
         processfolder(self.pth_in, self.pth_out)
