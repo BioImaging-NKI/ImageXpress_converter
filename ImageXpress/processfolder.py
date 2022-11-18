@@ -54,9 +54,10 @@ def processfolder(pth_in, pth_out=None):
         tif_ref.close()
 
     for tifset in tifsets:
-        logging.info(f"Running stage label {tifset} with {len(tifsets[tifset])} files")
+        logging.critical(f"Running {tifset} with {len(tifsets[tifset])} files")
         timepoints = list(set([x['timepoint'] for x in tifsets[tifset]]))
         image_names = list(set([x['image-name'] for x in tifsets[tifset]]))
+        image_names.sort()
         pixelSizeX = list(set([x['spatial-calibration-x'] for x in tifsets[tifset]]))
         pixelSizeY = list(set([x['spatial-calibration-y'] for x in tifsets[tifset]]))
         if len(pixelSizeX) > 1:
@@ -73,6 +74,7 @@ def processfolder(pth_in, pth_out=None):
             logging.info(f"Found file {tif['pth'].stem} ; t = {idx_t} ; c = {idx_c}")
             images[idx_t][idx_c] = tif_ref.pages[0].asarray()
             metadata = tif['metadata']
+        # to do: add ImageJ metadata, including pixel size and z-spacing
         data = np.stack(images)
         filename = f"{' '.join(tifset)}.tif"
         outpath = Path(pth_out, filename)

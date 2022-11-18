@@ -14,7 +14,7 @@ class ImageXpressConverter(qtw.QMainWindow):
         self.resize(500, 300)
         self.setCentralWidget(self.mainwidget)
         logging.getLogger().addHandler(self.mainwidget)
-        logging.getLogger().setLevel(logging.INFO)
+        logging.getLogger().setLevel(logging.ERROR)
 
     def closeEvent(self, event):
         logging.getLogger().removeHandler(logging.getLogger().handlers[0])
@@ -31,7 +31,9 @@ class MainWidget(qtw.QWidget, logging.Handler):
         self.pth_out = Path('')
 
     def run(self):
+        self.ui.log_txt.appendPlainText('Starting converting files...')
         processfolder(self.pth_in, self.pth_out)
+        self.ui.log_txt.appendPlainText('Finished converting')
 
     def setin(self):
         file = qtw.QFileDialog.getExistingDirectory(self, "Set Input Directory")

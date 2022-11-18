@@ -8,8 +8,12 @@ imp = IJ.openImage("C:/ImageXpress/A01 Site 1.tif")
 def jsonSlurper = new JsonSlurper()
 def metadata = jsonSlurper.parseText(imp.getInfoProperty()) 
 
-// Print Description (a single string with information about the data)
-println("\n"+metadata.Description) 
+// Print the metadata keys
+println("\nMetadata keys:")
+metadata.each({println(it.key)})
+
+// Description is a single string with information about the data
+println("\nDescription:\n"+metadata.Description)
 
 // PlaneInfo contains many fields with image information
 println("\nPlaneInfo has " + metadata.PlaneInfo.size() + " fields:")
