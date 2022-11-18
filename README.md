@@ -16,7 +16,7 @@ The naming scheme of the output files is `<well name> site <site number>.tif`.
 
 Options:
 -h, --help               show this help message and exit
--i InputFolder        the root input folder containing all the separate tif images (put between " " if the inputFolder contains spaces).
+-i InputFolder        the root input folder containing all the separate tif images (put between " " if the inputFolder contains spaces)
 -o OutputFolder    Output folder
 -l LogLevel             LogLevel: 0 error, 1 warning, 2 info (default: 0)
 
