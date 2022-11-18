@@ -4,8 +4,12 @@ Windows executable program for combining separate .tif files (channels, timepoin
 All images in the input folder (including subfolders) are read and - using the image metadata - combined into hyperstacks images, each containing a single site (xy position).
 The naming scheme of the output files is `<well name> site <site number>.tif`.
 
-## Installation instructions
+## Installation and run instructions
 - [Download](https://github.com/BioImaging-NKI/ImageXpress_converter/releases/download/v1.1/ImageXpress_converter.v1.1.zip) and unzip the file
+- Double-click `ImageXpress_converter.exe`
+- Specify input folder and output folder and click 'Run'
+
+### Running via the command window
 - Open a command window (Windows-Key + r, type `cmd` and enter).
 - Go to the folder where you unzipped it (type `cd C:\myCustomFolder\myCustomSubfolder\ImageXpress_converter`) or add the folder to the Path.
 - usage: `ImageXpress_converter.exe [-h] [-i InputFolder] [-o OutputFolder]  [-l LogLevel]`
@@ -21,6 +25,8 @@ Example: `ImageXpress_converter.exe -i "C:\Input images" -o "C:\Output images"`
 
 ## Changelog
 Version 1.1: ImageXpress metadata is now included in the ImageDescription tag ("Show Info" in ImageJ).
+
+Version 1.2: Added GUI
 
 ## How to parse ImageXpress metadata from the generated tif files
 The original ImageXpress metadata is stored in the ImageDescription tag in JSON format, printed a single line. It consists of 6 keys. Some of the corresponding values contain info in a string, others contain info as a list. Below is an example groovy macro how to correctly retrieve the metadata:
