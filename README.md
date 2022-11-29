@@ -9,6 +9,8 @@ The naming scheme of the output files is `<well name> site <site number>.tif`.
 - Double-click `ImageXpress_converter.exe`
 - Specify input folder and output folder and click 'Run'
 
+<img src="https://user-images.githubusercontent.com/68109112/204586942-f555fcd1-cb14-4561-b8cb-fae10c7339a4.png" width="500" />
+
 ### Running via the command window
 - Open a command window (Windows-Key + r, type `cmd` and enter).
 - Go to the folder where you unzipped it (type `cd C:\myCustomFolder\myCustomSubfolder\ImageXpress_converter`) or add the folder to the Path.
