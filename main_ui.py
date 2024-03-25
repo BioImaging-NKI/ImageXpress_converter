@@ -19,6 +19,7 @@ class ImageXpressConverter(qtw.QMainWindow):
     def closeEvent(self, event):
         logging.getLogger().removeHandler(logging.getLogger().handlers[0])
 
+
 class MainWidget(qtw.QWidget, logging.Handler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -27,13 +28,13 @@ class MainWidget(qtw.QWidget, logging.Handler):
         self.ui.run_btn.clicked.connect(self.run)
         self.ui.in_btn.clicked.connect(self.setin)
         self.ui.out_btn.clicked.connect(self.setout)
-        self.pth_in = Path('')
-        self.pth_out = Path('')
+        self.pth_in = Path("")
+        self.pth_out = Path("")
 
     def run(self):
-        self.ui.log_txt.appendPlainText('Starting converting files...')
+        self.ui.log_txt.appendPlainText("Starting converting files...")
         processfolder(self.pth_in, self.pth_out)
-        self.ui.log_txt.appendPlainText('Finished converting')
+        self.ui.log_txt.appendPlainText("Finished converting")
 
     def setin(self):
         file = qtw.QFileDialog.getExistingDirectory(self, "Set Input Directory")
@@ -61,5 +62,5 @@ def main():
     sys.exit(app.exec())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
