@@ -46,7 +46,10 @@ def processfolder(pth_in, pth_out=None):
         ]
         stage_label = (stage_label[0], stage_label[1])
         if "Camera Error" in tif_ref.metaseries_metadata["PlaneInfo"].keys():
-            logging.info(f"StageLabel {stage_label} had a Camera Error: {tif_ref.metaseries_metadata["PlaneInfo"]["Camera Error"]}. Skipping.")
+            error_val = tif_ref.metaseries_metadata["PlaneInfo"]["Camera Error"]
+            logging.info(
+                f"StageLabel {stage_label} had a Camera Error: {error_val}. Skipping."
+            )
             continue
         timepoint = 1
         if "Timepoint" in tif_ref.metaseries_metadata["PlaneInfo"].keys():
