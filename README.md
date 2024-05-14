@@ -55,3 +55,6 @@ metadata.PlaneInfo.each({println(it)})
 // You can also get the value of a single field
 println("\nValue of zoom-percent is : " + metadata.PlaneInfo."zoom-percent")
 ```
+
+## Build instructions
+`pyinstaller -F ImageXpressConverter.py`

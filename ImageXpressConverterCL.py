@@ -5,10 +5,6 @@ from ImageXpress import processfolder
 
 
 def get_args() -> argparse.Namespace:
-    """
-    Get the arguments from the commandline
-    :return:
-    """
     myparser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
