@@ -5,8 +5,7 @@ All images in the input folder (including subfolders) are read and - using the i
 The naming scheme of the output files is `<well name> site <site number>.tif`.
 
 ## Installation and run instructions
-- [Download](https://github.com/BioImaging-NKI/ImageXpress_converter/releases/download/v1.2/ImageXpress_converter_v1.2.zip) and unzip the file
-- Double-click `ImageXpress_converter.exe`
+- [Download the release](https://github.com/BioImaging-NKI/ImageXpress_converter/releases) (normal or commandline)
 - Specify input folder and output folder and click 'Run'
 
 <img src="https://user-images.githubusercontent.com/68109112/204586942-f555fcd1-cb14-4561-b8cb-fae10c7339a4.png" width="500" />
